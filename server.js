@@ -7,7 +7,15 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use(cors());
+
+// تمرير خيارات لـ CORS middleware
+const corsOptions = {
+  origin: '*', // يمكنك تعيين النطاقات المسموح بها بدلاً من *
+  methods: 'POST', // تحديد الطرق المسموح بها، يمكنك إضافة GET، PUT، DELETE، إلخ
+  optionsSuccessStatus: 200 // تعيين رمز الحالة الناجحة للاستجابات الـ preflight
+};
+
+app.use(cors(corsOptions)); // استخدام middleware cors مع الخيارات المحددة
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
